@@ -73,8 +73,9 @@ def extract_transcript_details(youtube_video_url):
         else:
             return "No transcripts available for this video."
             
-    except Exception as e:
-        raise e
+    except:
+        return "No transcripts available for this video."
+            
 
 
 #for extracting summary from transcription using gemini api
