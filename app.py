@@ -2,6 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 import re
 from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api._errors import TranscriptsDisabled
 from googletrans import Translator
 
 
@@ -45,34 +46,33 @@ def translate_summary(summary, target_language):
 #for extracting transcription from youtube video
 def extract_transcript_details(youtube_video_url):
     try:
-        video_id= extract_video_code(youtube_video_url)
-        #for knowing in what languages the transcripts are available
-        #available_transcripts = YouTubeTranscriptApi.list_transcripts(video_id)
-        #print(available_transcripts)
+        video_id = extract_video_code(youtube_video_url)
         
         if video_id:
-            transcript=YouTubeTranscriptApi.get_transcript(video_id,languages=[
-                "en","hi","bn","ta","te","kn","ml","as","or","gu","mr","ne","pa","sd","si",
+            transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=[
+                "en", "hi", "bn", "ta", "te", "kn", "ml", "as", "or", "gu", "mr", "ne", "pa", "sd", "si",
                 "ab", "aa", "af", "ak", "sq", "am", "ar", "hy", "ay", "az", "ba", "eu", "be", "bho",
-                "bs", "br", "bg", "my", "ca", "ceb", "zh-Hans", "zh-Hant", "co", "hr", "cs", "da",
-                "dv", "nl", "dz", "eo", "et", "ee", "fo", "fj", "fil", "fi", "fr", "gaa", "gl", "lg",
-                "ka", "de", "el", "gn", "ht", "ha", "haw", "iw", "hmn", "hu", "is", "ig", "id",
-                "ga", "it", "ja", "jv", "kl", "kk", "kha", "km", "rw", "ko", "kri", "ku", "ky", "lo",
-                "la", "lv", "ln", "lt", "luo", "lb", "mk", "mg", "ms", "mt", "gv", "mi", "mr", "mn",
-                "mfe", "new", "nso", "no", "ny", "oc", "om", "os", "pam", "ps", "fa", "pl", "pt",
-                "pt-PT", "qu", "ro", "rn", "ru", "sm", "sg", "sa", "gd", "sr", "crs", "sn", "sd",
-                "si", "sk", "sl", "so", "st", "es", "su", "sw", "ss", "sv", "tg", "tt", "th",
-                "bo", "ti", "to", "ts", "tn", "tum", "tr", "tk", "uk", "ur", "ug", "uz", "ve", "vi",
-                "war", "cy", "fy", "wo", "xh", "yi", "yo", "zu"
-]
-)
-            transcript_text=""
+            "bs", "br", "bg", "my", "ca", "ceb", "zh-Hans", "zh-Hant", "co", "hr", "cs", "da",
+            "dv", "nl", "dz", "eo", "et", "ee", "fo", "fj", "fil", "fi", "fr", "gaa", "gl", "lg",
+            "ka", "de", "el", "gn", "ht", "ha", "haw", "iw", "hmn", "hu", "is", "ig", "id",
+            "ga", "it", "ja", "jv", "kl", "kk", "kha", "km", "rw", "ko", "kri", "ku", "ky", "lo",
+            "la", "lv", "ln", "lt", "luo", "lb", "mk", "mg", "ms", "mt", "gv", "mi", "mr", "mn",
+            "mfe", "new", "nso", "no", "ny", "oc", "om", "os", "pam", "ps", "fa", "pl", "pt",
+            "pt-PT", "qu", "ro", "rn", "ru", "sm", "sg", "sa", "gd", "sr", "crs", "sn", "sd",
+            "si", "sk", "sl", "so", "st", "es", "su", "sw", "ss", "sv", "tg", "tt", "th",
+            "bo", "ti", "to", "ts", "tn", "tum", "tr", "tk", "uk", "ur", "ug", "uz", "ve", "vi",
+            "war", "cy", "fy", "wo", "xh", "yi", "yo", "zu"
+            ])
+            transcript_text = ""
             for i in transcript:
                 transcript_text += " " + i["text"]
             return transcript_text
         else:
             return "No transcripts available for this video."
             
+    except TranscriptsDisabled:
+        st.error("Transcripts are disabled for this video.")
+        return None
     except Exception as e:
         st.error("Sorry, we couldn't retrieve the transcript for this video. It might not be available or there could be an issue with the connection.")
         return None
