@@ -58,6 +58,8 @@ def extract_transcript_details(youtube_video_url):
         else:
             return "No transcripts available for this video."
             
+        
+        
     except TranscriptsDisabled:
         st.error("Transcripts are disabled for this video.")
         return None
