@@ -73,8 +73,9 @@ def extract_transcript_details(youtube_video_url):
         else:
             return "No transcripts available for this video."
             
-    except:
-        return "No transcripts available for this video."
+    except Exception as e:
+        st.error("Sorry, we couldn't retrieve the transcript for this video. It might not be available or there could be an issue with the connection.")
+        return None
             
 
 
