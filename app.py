@@ -48,8 +48,17 @@ def extract_transcript_details(youtube_video_url):
         
         if video_id:
             transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=[
-                "en", "hi", "bn", "ta", "te", "kn", "ml", "as", "or", "gu", "mr", "ne", "pa", "sd", "si"
-                #... (rest of the language codes)
+                "en", "hi", "bn", "ta", "te", "kn", "ml", "as", "or", "gu", "mr", "ne", "pa", "sd", "si","ab", "aa", "af", "ak", "sq", "am", "ar", "hy", "ay", "az", "ba", "eu", "be", "bho",
+            "bs", "br", "bg", "my", "ca", "ceb", "zh-Hans", "zh-Hant", "co", "hr", "cs", "da",
+            "dv", "nl", "dz", "eo", "et", "ee", "fo", "fj", "fil", "fi", "fr", "gaa", "gl", "lg",
+            "ka", "de", "el", "gn", "ht", "ha", "haw", "iw", "hmn", "hu", "is", "ig", "id",
+            "ga", "it", "ja", "jv", "kl", "kk", "kha", "km", "rw", "ko", "kri", "ku", "ky", "lo",
+            "la", "lv", "ln", "lt", "luo", "lb", "mk", "mg", "ms", "mt", "gv", "mi", "mr", "mn",
+            "mfe", "new", "nso", "no", "ny", "oc", "om", "os", "pam", "ps", "fa", "pl", "pt",
+            "pt-PT", "qu", "ro", "rn", "ru", "sm", "sg", "sa", "gd", "sr", "crs", "sn", "sd",
+            "si", "sk", "sl", "so", "st", "es", "su", "sw", "ss", "sv", "tg", "tt", "th",
+            "bo", "ti", "to", "ts", "tn", "tum", "tr", "tk", "uk", "ur", "ug", "uz", "ve", "vi",
+            "war", "cy", "fy", "wo", "xh", "yi", "yo", "zu"
             ])
             transcript_text = ""
             for i in transcript:
