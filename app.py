@@ -99,9 +99,9 @@ if youtube_link:
     st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
 
 if st.button("Get Detailed Notes"):
-    transcript_text = extract_transcript_details(youtube_link)
-    
-    if transcript_text:
+    try:
+        transcript_text = extract_transcript_details(youtube_link)
+        if transcript_text:
         if target_language:
             if target_language!='en':
                  summary = generate_gemini_content(transcript_text, prompt)
@@ -111,7 +111,9 @@ if st.button("Get Detailed Notes"):
        
         st.markdown("<h2 style='color: #FF6347;'>Detailed Notes:</h2>", unsafe_allow_html=True)
         st.write(summary)
-
+    except Exception as e:
+        st.error("Sorry, we couldn't retrieve the transcript for this video. It might not be available or there could be an issue with the connection.")
+     
 #applying basic styles
 st.markdown(
     """
