@@ -92,7 +92,7 @@ if st.button("Get Detailed Notes"):
                     summary = generate_gemini_content(transcript_text, prompt)
                     summary=translate_summary(summary, target_language)
              else:
-                summary = generate_gemini_content(transcript_text, prompt)
+                 summary = generate_gemini_content(transcript_text, prompt)
              st.markdown("<h2 style='color: #FF6347;'>Detailed Notes:</h2>", unsafe_allow_html=True)
              st.write(summary)
         
